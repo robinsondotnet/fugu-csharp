@@ -28,11 +28,18 @@
                 </button>
                 <a asp-controller="Home" asp-action="Index" class="navbar-brand">Fugu</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <!--<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+                -->
+                <ul class="nav navbar-nav right">
+                    <!--<li><a asp-controller="Category" asp-action="Index">Categories</a></li> -->
+                    <li><a asp-controller="Cookbooks" asp-action="Index">Cookbooks</a></li>
+                    <li><a asp-controller="Recipes" asp-action="Index">Recipes</a></li>
+                    <li><a asp-controller="Ingredients" asp-action="Index">Ingredients</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -42,7 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2016 - Fugu</p>
+            <p>&copy; 2016 - Fugu - made by Robinson Villegas Rojas</p>
         </footer>
     </div>
 
