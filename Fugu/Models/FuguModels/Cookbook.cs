@@ -15,6 +15,7 @@ namespace Fugu.Models.FuguModels
 
         public List<Recipe> Recipes { get; set; }
 
+
         [Timestamp]
         public byte[] Timestamp { get; set; }
     }

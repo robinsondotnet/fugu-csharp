@@ -8,8 +8,8 @@ using Fugu.Data;
 namespace Fugu.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160526062708_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20160530103832_ThirdMigration")]
+    partial class ThirdMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,8 @@ namespace Fugu.Data.Migrations
                     b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<int?>("AuthorId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -56,6 +58,8 @@ namespace Fugu.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -63,6 +67,73 @@ namespace Fugu.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Author", b =>
+                {
+                    b.Property<int>("AuthorId")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("AuthorId");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Cookbook", b =>
+                {
+                    b.Property<int>("CookbookId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AuthorId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("CookbookId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Cookbooks");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Ingredient", b =>
+                {
+                    b.Property<int>("IngredientId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("RecipeId");
+
+                    b.HasKey("IngredientId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Recipe", b =>
+                {
+                    b.Property<int>("RecipeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CookbookId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("RecipeId");
+
+                    b.HasIndex("CookbookId");
+
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -170,6 +241,36 @@ namespace Fugu.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Fugu.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("Fugu.Models.FuguModels.Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Cookbook", b =>
+                {
+                    b.HasOne("Fugu.Models.FuguModels.Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Ingredient", b =>
+                {
+                    b.HasOne("Fugu.Models.FuguModels.Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fugu.Models.FuguModels.Recipe", b =>
+                {
+                    b.HasOne("Fugu.Models.FuguModels.Cookbook")
+                        .WithMany()
+                        .HasForeignKey("CookbookId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

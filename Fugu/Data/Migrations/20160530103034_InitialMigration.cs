@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Fugu.Migrations
+namespace Fugu.Data.Migrations
 {
     public partial class InitialMigration : Migration
     {
@@ -27,12 +27,19 @@ namespace Fugu.Migrations
                 {
                     CookbookId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuthorId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Timestamp = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cookbooks", x => x.CookbookId);
+                    table.ForeignKey(
+                        name: "FK_Cookbooks_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "AuthorId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,6 +84,11 @@ namespace Fugu.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cookbooks_AuthorId",
+                table: "Cookbooks",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ingredients_RecipeId",
                 table: "Ingredients",
                 column: "RecipeId");
@@ -90,9 +102,6 @@ namespace Fugu.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Authors");
-
-            migrationBuilder.DropTable(
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
@@ -100,6 +109,9 @@ namespace Fugu.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cookbooks");
+
+            migrationBuilder.DropTable(
+                name: "Authors");
         }
     }
 }
