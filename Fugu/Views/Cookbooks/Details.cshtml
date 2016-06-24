@@ -5,27 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="ui vertical segment">
+    <div class="ui container">
+        <div class="ui segment pilled main-segment">
+            <div class="ui info message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Changes in Service
+                </div>
+                <ul class="list">
+                    <li>Changes in Service
+                        We just updated our privacy policy here to better service our customers. We recommend reviewing the changes.</li>
+                </ul>
+            </div>
+
+            <h2 class="ui header">
+                <i class="book icon"></i>
+                <div class="content">
+                    Detalle del Recetario   
+                </div>
+            </h2>
+
+            <div class="ui clearing divider">
+            </div>
+            <h5 class="ui top attached header">
+            @Html.DisplayNameFor(model => model.Name)
+            </h5>
+            <div class="ui attached segment">
+                <p>
+                    <i>@Html.DisplayFor(model => model.Name)</i>
+</p>
+            </div>
+            <div class="ui bottom attached  message">
+    <a asp-action="Edit" class="ui button primary" asp-route-id="@Model.CookbookId">Edit</a> 
+    <a class="ui button" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div>
-    <h4>Cookbook</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Timestamp)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Timestamp)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.CookbookId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

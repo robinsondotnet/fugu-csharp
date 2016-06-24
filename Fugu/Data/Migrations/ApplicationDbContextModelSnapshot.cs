@@ -85,12 +85,14 @@ namespace Fugu.Data.Migrations
 
                     b.Property<int?>("AuthorId");
 
+                    b.Property<DateTime>("Inserted")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("LastUpdated")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("CookbookId");
 
@@ -124,9 +126,11 @@ namespace Fugu.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("Inserted")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("LastUpdated")
+                        .ValueGeneratedOnAdd();
 
                     b.HasKey("RecipeId");
 

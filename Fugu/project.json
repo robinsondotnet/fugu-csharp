@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-Fugu-ea4c6461-084e-40e9-a974-9e4b996fa006",
 
   "dependencies": {
@@ -37,7 +37,9 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview1-final",
       "type": "build"
-    }
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0-rc2-final",
+    "Microsoft.Extensions.SecretManager.Tools": "1.0.0-preview1-final"
   },
 
   "tools": {

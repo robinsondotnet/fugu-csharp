@@ -5,38 +5,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Recipe</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="CookbookId" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="CookbookId" class ="form-control" asp-items="ViewBag.CookbookId"></select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="ui vertical segment">
+        <div class="ui container">
+            <div  class="ui segment pilled main-segment">
+                <div class="ui info message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Changes in Service
+                    </div>
+                    <ul class="list">
+                        <li>Changes in Service
+We just updated our privacy policy here to better service our customers. We recommend reviewing the changes.</li>
+                    </ul>
+                </div>
+
+                <h2 class="ui header">
+                    <i class="leanpub icon"></i>
+                    <div class="content">
+                        Nueva Receta
+                    </div>
+                </h2>
+
+                <div class="ui clearing divider">
+                </div>
+
+        <form class="ui form" asp-action="Create">
+            <div class="field">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <label>Nombre</label>
+                    <input asp-for="Description" placeholder="Ingrese el nombre del recetario" />
+                    <span asp-validation-for="Description" class="text-danger" />
+                </div>
+            <div class="field">
+                <label>Recetario</label>
+                <select asp-for="CookbookId" class ="ui dropdown" asp-items="ViewBag.CookbookId"></select>
+            </div>
+                <div class="field">
+                        <input type="submit" value="Crear" class="ui button primary" />
+                    
+                        <a class="ui button" asp-action="Index">Cancelar</a>
+                </div>
+        </form>
+
+    <div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+                <p></p>
+            </div>
+        </div>
+</div>
+
+
+
+

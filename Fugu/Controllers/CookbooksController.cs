@@ -53,10 +53,13 @@ namespace Fugu.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CookbookId,Name,Timestamp")] Cookbook cookbook)
+        public async Task<IActionResult> Create([Bind("CookbookId,Name")] Cookbook cookbook)
         {
             if (ModelState.IsValid)
             {
+                cookbook.Inserted = DateTime.Now;
+                //cookbook.LastUpdated = DateTime.Now;
+                
                 _context.Add(cookbook);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -85,7 +88,7 @@ namespace Fugu.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CookbookId,Name,Timestamp")] Cookbook cookbook)
+        public async Task<IActionResult> Edit(int id, [Bind("CookbookId,Name")] Cookbook cookbook)
         {
             if (id != cookbook.CookbookId)
             {

@@ -45,6 +45,23 @@ namespace Fugu.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
+            List<SelectListItem> tmpList = new List<SelectListItem>();
+            tmpList.Add(new SelectListItem
+            {
+                Text = "Select",
+                Value = ""
+            });
+
+            foreach (Cookbook item in _context.Cookbooks.ToList())
+            {
+                tmpList.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.CookbookId.ToString()
+                });
+            }
+
+            ViewBag.CookbookId = tmpList;
             return View();
         }
 
@@ -77,6 +94,29 @@ namespace Fugu.Controllers
             {
                 return NotFound();
             }
+
+            List<SelectListItem> tmpList = new List<SelectListItem>();
+            tmpList.Add(new SelectListItem
+            {
+                Text = "Select",
+                Value = "",
+                Selected = false
+            });
+
+            foreach (Cookbook item in await _context.Cookbooks.ToListAsync())
+            {
+                bool selected = recipe.CookbookId == item.CookbookId ? true : false;
+                tmpList.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.CookbookId.ToString(),
+                    Selected = selected
+                });
+            }
+
+
+            ViewBag.CookbookId = tmpList;
+
             return View(recipe);
         }
 

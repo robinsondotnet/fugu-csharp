@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+    var menuOptions = "";
+    if (controllerName == "Home")
+    {
+        menuOptions += "hidden";
+    }
+} 
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,70 +16,91 @@
     <title>@ViewData["Title"] - Fugu</title>
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />-->
+        <link rel="stylesheet" type="text/css" href="~/lib/semantic/dist/semantic.min.css">
+        <link rel="stylesheet" href="~/css/site-semantic.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
     </environment>
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Fugu</a>
-            </div>
-            <!--<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                -->
-                <ul class="nav navbar-nav right">
-                    <!--<li><a asp-controller="Category" asp-action="Index">Categories</a></li> -->
-                    <li><a asp-controller="Cookbooks" asp-action="Index">Cookbooks</a></li>
-                    <li><a asp-controller="Recipes" asp-action="Index">Recipes</a></li>
-                    <li><a asp-controller="Ingredients" asp-action="Index">Ingredients</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+    <!-- Following Menu -->
+    <div class="ui large top fixed @menuOptions  menu">
+        <div class="ui container">
+            <a asp-controller="Home" asp-action="Index" class="header item">
+                <img class="logo" src="~/images/logo-dolce.jpg">
+            </a>
+
+            <a asp-controller="Home" asp-action="Index" class="@(controllerName=="Home"?"active":"") item">Inicio</a>
+            <a asp-controller="Cookbooks" asp-action="Index" class="@(controllerName=="Cookbooks"?"active":"") item">Recetarios</a>
+            <a asp-controller="Recipes" asp-action="Index" class="@(controllerName=="Recipes"?"active":"") item">Recetas</a>
+            @await Html.PartialAsync("_LoginPartial", new { signup = "primary" })
         </div>
     </div>
-    <div class="container body-content">
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Cookbooks</a>
+        <a class="item">Recipes</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+    <div class="pusher">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2016 - Fugu - made by Robinson Villegas Rojas</p>
-        </footer>
+        <div class="ui inverted vertical footer segment">
+                    <div class="ui container">
+                        <div class="ui stackable inverted divided equal height stackable grid">
+                            <div class="three wide column">
+                                <h4 class="ui inverted header">About</h4>
+                                <div class="ui inverted link list">
+                                    <a href="#" class="item">Sitemap</a>
+                                    <a href="#" class="item">Contact Us</a>
+                                    <a href="#" class="item">Religious Ceremonies</a>
+                                    <a href="#" class="item">Gazebo Plans</a>
+                                </div>
+                            </div>
+                            <div class="three wide column">
+                                <h4 class="ui inverted header">Services</h4>
+                                <div class="ui inverted link list">
+                                    <a href="#" class="item">Banana Pre-Order</a>
+                                    <a href="#" class="item">DNA FAQ</a>
+                                    <a href="#" class="item">How To Access</a>
+                                    <a href="#" class="item">Favorite X-Men</a>
+                                </div>
+                            </div>
+                            <div class="seven wide column">
+                                <h4 class="ui inverted header">Footer Header</h4>
+                                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+            <environment names="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/lib/semantic/dist/semantic.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment names="Staging,Production">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery">
+                </script>
+                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
 
-    @RenderSection("scripts", required: false)
-</body>
+            @RenderSection("scripts", required: false)
+        </body>
 </html>

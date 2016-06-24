@@ -5,31 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Cookbook</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
+<div class="ui vertical segment">
+    <div class="ui container">
+        <div class="ui segment pilled main-segment">
+            <div class="ui red message">
+                <i class="close icon"></i>
+                <div class="header">
+                    Advertencia
+                </div>
+                <ul class="list">
+                    <li>Estas seguro que deseas borrar el registro?</li>
+                </ul>
+            </div>
+
+            <h2 class="ui header">
+                <i class="book icon"></i>
+                <div class="content">
+                     Eliminar Recetario   
+                </div>
+            </h2>
+
+            <div class="ui clearing divider">
+            </div>
+            <h5 class="ui top attached header">
             @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Timestamp)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Timestamp)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            </h5>
+            <div class="ui attached segment">
+                <p>
+                    <i>@Html.DisplayFor(model => model.Name)</i>
+</p>
+            </div>
+            <form asp-action="Delete" class="ui bottom attached message">
+                <input type="submit" class="ui button red" value="Borrar"/> 
+                <a class="ui button" asp-action="Index">Back to List</a>
+            </form>
         </div>
-    </form>
+    </div>
+</div>
+
+<div>
 </div>

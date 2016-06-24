@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Fugu.Models;
 using Fugu.Models.AccountViewModels;
 using Fugu.Services;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Fugu.Controllers
 {
@@ -187,7 +188,13 @@ namespace Fugu.Controllers
                 // If the user does not have an account, then ask the user to create an account.
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
+                //Handle if email is not provided by the external login
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                if (email.Trim() != "")
+                {
+                    //This Rocks !!!
+                    ExternalLoginConfirmation(new ExternalLoginConfirmationViewModel {Email = email} ).RunSynchronously();
+                }
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
             }
         }

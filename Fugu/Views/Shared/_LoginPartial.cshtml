@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Fugu.Models
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -19,8 +20,12 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>
+    <div class="right menu">
+        <div class="item">
+            <a class="@ViewData.Eval("login") ui button">Iniciar Sesión</a>
+        </div>
+        <div class="item">
+            <a class="@ViewData.Eval("signup") ui button">Registrate</a>
+        </div>
+    </div>
 }

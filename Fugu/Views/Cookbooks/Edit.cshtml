@@ -5,40 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+    <div class="ui vertical segment">
+        <div class="ui container">
+            <div  class="ui segment pilled main-segment">
+                <div class="ui info message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        Changes in Service
+                    </div>
+                    <ul class="list">
+                        <li>Changes in Service
+We just updated our privacy policy here to better service our customers. We recommend reviewing the changes.</li>
+                    </ul>
+                </div>
 
-<form asp-action="Edit">
-    <div class="form-horizontal">
-        <h4>Cookbook</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="CookbookId" />
-        <div class="form-group">
-            <label asp-for="Name" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Timestamp" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Timestamp" class="form-control" />
-                <span asp-validation-for="Timestamp" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-</form>
+                <h2 class="ui header">
+                    <i class="book icon"></i>
+                    <div class="content">
+                        Editar Recetario
+                    </div>
+                </h2>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                <div class="ui clearing divider">
+                </div>
+
+        <form class="ui form" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CookbookId" />
+            <div class="field">
+                    <label>Nombre</label>
+                    <input asp-for="Name" placeholder="Ingrese el nombre del recetario" />
+                    <span asp-validation-for="Name" class="text-danger" />
+                </div>
+                <div class="field">
+                        <input type="submit" value="Guardar" class="ui button primary" />
+                    
+                        <a class="ui button" asp-action="Index">Cancelar</a>
+                </div>
+        </form>
+
+    <div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+                <p></p>
+            </div>
+        </div>
+</div>
+
+
